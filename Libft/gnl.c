@@ -48,24 +48,27 @@ static char	*ft_addington(char *og, char *add)
 	return (temp);
 }
 
-static int		bufferfix(char *buff)
+static int		bufferfix(char *buff, int lenflag)
 {
 	char	*temp;
-	int		i;
+	// int		i;
 
-	i = 0;
+	// i = 0;
 	temp = buff;
+	if (!lenflag)
+		buff[0] = 0;
 	while (*temp != '\n' && *temp)
 		temp++;
 	if (*temp != '\n')
 		return (0);
 	temp = temp + 1;
-	while (temp[i])
-	{
-		buff[i] = temp[i];
-		i++;
-	}
-	buff[i] = 0;
+	// while (temp[i])			//use os_cpy here too? maybe can improve bufferfix by some bits
+	// {
+	// 	buff[i] = temp[i];
+	// 	i++;
+	// }
+	// buff[i] = 0;
+	os_cpy(buff, temp);
 	return (1);
 }
 
@@ -79,7 +82,7 @@ int		get_next_line(int fd, char **line)
 	*line = ft_addington(0, buff);
 	if (!(*line))
 		return (-1);
-	if (bufferfix(buff))
+	if (bufferfix(buff, 1))
 		return (1);
 	len = read(fd, buff, BUFFER_SIZE);
 	while (len > 0)
@@ -88,11 +91,11 @@ int		get_next_line(int fd, char **line)
 		*line = ft_addington(*line, buff);
 		if (!(*line))
 			return (-1);
-		if (bufferfix(buff))
+		if (bufferfix(buff, 1))
 			return (1);
 		len = read(fd, buff, BUFFER_SIZE);
 	}
 	if (!len)
-		return (0);
+		return (bufferfix(buff, 0));
 	return (-1);
 }

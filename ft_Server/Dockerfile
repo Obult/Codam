@@ -37,7 +37,6 @@ RUN wget -q https://files.phpmyadmin.net/phpMyAdmin/5.0.1/phpMyAdmin-5.0.1-engli
 		&& rm -rf phpMyAdmin-5.0.1-english.tar.gz \
 		&& mv phpMyAdmin-5.0.1-english /var/www/html/phpmyadmin
 COPY srcs/config.inc.php /var/www/html/phpmyadmin
-COPY srcs/phpmyadmin.sql .
 RUN service mysql start \
 		&& mysql -e  "CREATE DATABASE phpmyadmin;" \
 		&& mysql -e "GRANT ALL PRIVILEGES ON phpmyadmin.* TO 'root'@'localhost';" \
