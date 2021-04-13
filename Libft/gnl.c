@@ -1,4 +1,3 @@
-#include <unistd.h>
 #include "libft.h"
 
 static int		ft_strclen(char *s, char c)
@@ -13,12 +12,12 @@ static int		ft_strclen(char *s, char c)
 	return (i);
 }
 
-static int	os_cpy(char *dst, char *src)
+static int	os_cpy(char *dst, char *src, int c)
 {
 	int		i;
 
 	i = 0;
-	while (src[i] && src[i] != '\n')
+	while (src[i] && src[i] != (char)c)
 	{
 		dst[i] = src[i];
 		i++;
@@ -41,19 +40,19 @@ static char	*ft_addington(char *og, char *add)
 	}
 	if (og)
 	{
-		i = os_cpy(temp, og);
+		i = os_cpy(temp, og, '\n');
 		free(og);
 	}
-	os_cpy(&temp[i], add);
+	os_cpy(&temp[i], add, '\n');
 	return (temp);
 }
 
 static int		bufferfix(char *buff, int lenflag)
 {
 	char	*temp;
-	// int		i;
+	int		i;
 
-	// i = 0;
+	i = 0;
 	temp = buff;
 	if (!lenflag)
 		buff[0] = 0;
@@ -61,14 +60,7 @@ static int		bufferfix(char *buff, int lenflag)
 		temp++;
 	if (*temp != '\n')
 		return (0);
-	temp = temp + 1;
-	// while (temp[i])			//use os_cpy here too? maybe can improve bufferfix by some bits
-	// {
-	// 	buff[i] = temp[i];
-	// 	i++;
-	// }
-	// buff[i] = 0;
-	os_cpy(buff, temp);
+	os_cpy(buff, temp + 1, 0);
 	return (1);
 }
 
