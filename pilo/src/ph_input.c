@@ -1,32 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   philo.h                                            :+:    :+:            */
+/*   ph_input.c                                         :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: obult <obult@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/01/19 14:18:48 by obult         #+#    #+#                 */
-/*   Updated: 2022/01/27 17:00:29 by obult         ########   odam.nl         */
+/*   Created: 2022/01/27 16:57:13 by obult         #+#    #+#                 */
+/*   Updated: 2022/01/27 17:24:34 by obult         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PHILO_H
-# define PHILO_H
+#include "philo.h"
 
-# include <pthread.h>
-# include <stdio.h>
-# include <stdlib.h>
-
-typedef struct s_general
+int     parse_input(t_general *data, char **argv)
 {
-    int     errornum;
-    int     philocount;
-    int     time_to_die;
-    int     time_to_eat;
-    int     time_to_sleep;
-    int     eats;
-}           t_general;
+    int error;
 
-int	ph_atoi(const char *nptr, int *error);
-
-#endif
+    error = 0;
+    data->philocount = ph_atoi(argv[1], &error);
+    data->time_to_die = ph_atoi(argv[2], &error);
+    data->time_to_eat = ph_atoi(argv[3], &error);
+    data->time_to_sleep = ph_atoi(argv[4], &error);
+    data
+}

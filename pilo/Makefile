@@ -6,7 +6,7 @@
 #    By: obult <obult@student.codam.nl>               +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/01/19 12:29:04 by obult         #+#    #+#                  #
-#    Updated: 2022/01/19 15:25:46 by obult         ########   odam.nl          #
+#    Updated: 2022/01/22 16:12:12 by obult         ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ OBJ			= obj/main.o
 CC			= gcc
 RM			= rm -f
 HEADER		= -I headers/
-CFLAGS		= -Wall -Werror -Wextra
+CFLAGS		= -Wall -Werror -Wextra -fsanitize=address
 
 all:		${NAME}
 
@@ -34,7 +34,7 @@ fclean:		clean
 re:			fclean all
 
 ${NAME}:	${OBJ}
-				@${CC} -o $@ $^ \
+				@${CC} -fsanitize=address -o $@ $^ \
 				$(info ************  Pilo Ready!)
 
 .PHONY: all clean fclean re libft
