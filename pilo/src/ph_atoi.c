@@ -6,7 +6,7 @@
 /*   By: obult <obult@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/27 16:29:18 by obult         #+#    #+#                 */
-/*   Updated: 2022/01/27 17:06:04 by obult         ########   odam.nl         */
+/*   Updated: 2022/01/28 12:31:40 by obult         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,17 +65,19 @@ int	ph_atoi(const char *nptr, int *error)
 
 	i = 0;
 	plus = 1;
-    if (!str || *errornum)
+    if (!nptr || *error)
     {
-        *errornum = -42;
+		if (*error)
+			return (0);
+        *error= -42;
         return (0);
     }
 	while (charcheck(nptr[i], " \t\v\r\f\n"))
 		i++;
-	if (charcheck(nptr[i], "-+"))
-		if (nptr[i] == '-')
-			plus = -1;
-	if (charcheck(nptr[i], "-+"))
+	if (nptr[i] == '-')
+	{
+		plus = -1;
 		i++;
+	}
 	return (plus * fo_atoi_construction(&(nptr[i]), error, plus));
 }
