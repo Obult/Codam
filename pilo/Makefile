@@ -6,12 +6,13 @@
 #    By: obult <obult@student.codam.nl>               +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/01/19 12:29:04 by obult         #+#    #+#                  #
-#    Updated: 2022/01/22 16:12:12 by obult         ########   odam.nl          #
+#    Updated: 2022/02/03 14:38:18 by obult         ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		= philo
-OBJ			= obj/main.o
+OBJ			= main.o ph_input.o ph_atoi.o philo.o start_sim.o
+OBJS		= $(addprefix obj/, ${OBJ})
 CC			= gcc
 RM			= rm -f
 HEADER		= -I headers/
@@ -24,7 +25,7 @@ obj/%.o:	src/%.c
 				$(CC) -c $(CFLAGS) $(HEADER) -o $@ $<
 
 clean:
-				@${RM} ${OBJ} \
+				@${RM} ${OBJS} \
 				$(info ************  Pilo Clean)
 
 fclean:		clean
@@ -33,7 +34,7 @@ fclean:		clean
 
 re:			fclean all
 
-${NAME}:	${OBJ}
+${NAME}:	${OBJS}
 				@${CC} -fsanitize=address -o $@ $^ \
 				$(info ************  Pilo Ready!)
 

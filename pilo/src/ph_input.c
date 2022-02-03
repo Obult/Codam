@@ -6,7 +6,7 @@
 /*   By: obult <obult@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/27 16:57:13 by obult         #+#    #+#                 */
-/*   Updated: 2022/01/28 14:40:24 by obult         ########   odam.nl         */
+/*   Updated: 2022/02/03 15:14:38 by obult         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,4 +29,39 @@ int     parse_input(t_general *data, char **argv, int argc)
     if (argc == 6 && data->eats < 0)
         return (1);
     return (error);
+}
+
+static void	ph_asign_values(t_general *data)
+{
+	int	i;
+
+	i = 0;
+	while (i < data->philocount)
+	{
+		data->ph_info[i].id = i + 1;
+		data->ph_info[i].gen = data;
+		i++;
+	}
+}
+
+int	ph_initer(t_general *data)
+{
+	data->forks = malloc(sizeof(pthread_mutex_t) * data->philocount);
+	if (!data->forks)
+		return (1);
+	data->philos = malloc(sizeof(pthread_t) * data->philocount);
+	if (!data->philos)
+	{
+		free(data->forks);
+		return (1);
+	}
+	data->ph_info = malloc(sizeof(t_philo) * data->philocount);
+	if (!data->ph_info)
+	{
+		free(data->forks);
+		free(data->philos);
+		return (1);
+	}
+	ph_asign_values(data);
+	return (0);
 }

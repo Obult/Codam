@@ -1,30 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   main.c                                             :+:    :+:            */
+/*   start_sim.c                                        :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: obult <obult@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/01/27 13:32:22 by obult         #+#    #+#                 */
-/*   Updated: 2022/02/03 14:53:24 by obult         ########   odam.nl         */
+/*   Created: 2022/02/02 16:41:10 by obult         #+#    #+#                 */
+/*   Updated: 2022/02/03 14:58:05 by obult         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-#include <stdio.h>
 
-int     main(int argc, char **argv)
+void	*start_sim(t_general *data)
 {
-	t_general   data;
+	int	i;
 
-	if (argc < 5 || argc > 6)
-		return (1);
-	if (argc == 6 && argv[5][0] == '0')
-		return (2);
-	if (parse_input(&data, argv, argc))
-		return (3);
-	if (ph_initer(&data) == 1)		// first malloc
-		return (0);
-	start_sim(&data);
-	exit(0);
+	i = 0;
+	while (i < data->philocount)
+	{
+		pthread_mutex_init(&data->forks[i], NULL);
+		pthread_create(&data->philos[i], NULL, iam_philo, (void *)&data->ph_info[i]);
+		i++;
+	}
+	while (i)
+	{
+		i--;
+		pthread_join(data->philos[i], NULL);
+	}
+	while (i < data->philocount)
+	{
+		pthread_mutex_destroy(&data->forks[i]);
+		i++;
+	}
+
+	return (NULL);
 }
