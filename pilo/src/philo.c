@@ -6,7 +6,7 @@
 /*   By: obult <obult@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/02 11:39:47 by obult         #+#    #+#                 */
-/*   Updated: 2022/02/03 14:56:04 by obult         ########   odam.nl         */
+/*   Updated: 2022/02/03 15:21:19 by obult         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,11 @@
 
 void	*iam_philo(void *arg)
 {
-	t_general	*me;
+	t_philo	*me;
 
-	me = (t_general *)arg;
+	me = (t_philo *)arg;
 
+	printf("iam philo %i\n", me->id);
 	// eat
 
 	// sleep

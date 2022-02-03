@@ -6,7 +6,7 @@
 /*   By: obult <obult@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/19 14:18:48 by obult         #+#    #+#                 */
-/*   Updated: 2022/02/03 14:56:58 by obult         ########   odam.nl         */
+/*   Updated: 2022/02/03 15:26:01 by obult         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ typedef struct s_general
 typedef struct s_philo
 {
 	int			id;
+	int			times_eaten;
 	t_general	*gen;
 	// time since last eaten
 }				t_philo;

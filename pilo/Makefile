@@ -6,7 +6,7 @@
 #    By: obult <obult@student.codam.nl>               +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/01/19 12:29:04 by obult         #+#    #+#                  #
-#    Updated: 2022/02/03 14:38:18 by obult         ########   odam.nl          #
+#    Updated: 2022/02/03 15:59:13 by obult         ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,26 +16,26 @@ OBJS		= $(addprefix obj/, ${OBJ})
 CC			= gcc
 RM			= rm -f
 HEADER		= -I headers/
-CFLAGS		= -Wall -Werror -Wextra -fsanitize=address
+CFLAGS		= -Wall -Werror -Wextra -g -fsanitize=address
 
 all:		${NAME}
 
 obj/%.o:	src/%.c
 				@mkdir -p $(dir $@)
-				$(CC) -c $(CFLAGS) $(HEADER) -o $@ $<
+				@$(CC) -c $(CFLAGS) $(HEADER) -o $@ $<
 
 clean:
-				@${RM} ${OBJS} \
+				@${RM} ${OBJS}
 				$(info ************  Pilo Clean)
 
 fclean:		clean
-				@${RM} ${NAME} \
-				$(info ************  Pilo Removed) \
+				@${RM} ${NAME}
+				$(info ************  Pilo Removed) 
 
 re:			fclean all
 
 ${NAME}:	${OBJS}
-				@${CC} -fsanitize=address -o $@ $^ \
+				@${CC} ${CFLAGS} -o $@ $^
 				$(info ************  Pilo Ready!)
 
 .PHONY: all clean fclean re libft
