@@ -6,7 +6,7 @@
 /*   By: obult <obult@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/02 11:39:47 by obult         #+#    #+#                 */
-/*   Updated: 2022/02/04 19:11:41 by obult         ########   odam.nl         */
+/*   Updated: 2022/02/04 20:09:54 by obult         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	*iam_philo(void *arg)
 
 	me = (t_philo *)arg;
 	if (me->id % 2 == 0)
-		usleep(175);
+		usleep(100);
 	while (1)
 	{
 		
