@@ -1,39 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   eat_sleep_think.c                                  :+:    :+:            */
+/*   time.c                                             :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: obult <obult@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/02/03 16:02:29 by obult         #+#    #+#                 */
-/*   Updated: 2022/02/04 13:13:24 by obult         ########   odam.nl         */
+/*   Created: 2022/02/04 11:30:32 by obult         #+#    #+#                 */
+/*   Updated: 2022/02/04 11:50:12 by obult         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ph_death(t_philo *me)
+#include "philo.h"
+
+long long	time_in_millis(void)
 {
-	printf("%i", pthread_mutex_lock(&me->gen->dead.mut));
-	
+    struct timeval	tv;
+
+    gettimeofday(&tv,NULL);
+    return (((long long)tv.tv_sec)*1000)+(tv.tv_usec/1000);
 }
 
-void	ph_eat(t_philo *me)
+void	great_sleep(int	mili)
 {
-	printf("%i %i is thinking");
-}
+	long long	time;
 
-void	ph_sleep(t_philo *me)
-{
-	printf("%i %i is thinking");
-}
-
-void	ph_think(t_philo *me)
-{
-	long long	timenow;
-
-	if (ph_death(me))
+	time = (long long)mili + time_in_millis();
+	while (time  < time_in_milis())
 	{
-		timenow = 
-		printf("%i %i is thinking", timenow - me->gen->start_time ,me->id);
-
+		usleep(100);
 	}
 }

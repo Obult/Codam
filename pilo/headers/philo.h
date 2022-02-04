@@ -6,7 +6,7 @@
 /*   By: obult <obult@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/19 14:18:48 by obult         #+#    #+#                 */
-/*   Updated: 2022/02/03 15:26:01 by obult         ########   odam.nl         */
+/*   Updated: 2022/02/04 12:54:00 by obult         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include <pthread.h>
 # include <stdio.h>
 # include <stdlib.h>
-#include <sys/time.h>
+# include <sys/time.h>
 
 typedef struct s_philo t_philo;
 
@@ -39,6 +39,7 @@ typedef struct s_general
 	pthread_t		*philos;
 	t_philo			*ph_info;
 	t_dead			dead;
+	long long		start_time;
 }					t_general;
 
 typedef struct s_philo
