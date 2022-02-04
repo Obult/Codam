@@ -6,34 +6,86 @@
 /*   By: obult <obult@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/03 16:02:29 by obult         #+#    #+#                 */
-/*   Updated: 2022/02/04 13:13:24 by obult         ########   odam.nl         */
+/*   Updated: 2022/02/04 19:35:50 by obult         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "philo.h"
+
 int	ph_death(t_philo *me)
 {
-	printf("%i", pthread_mutex_lock(&me->gen->dead.mut));
+	pthread_mutex_lock(&me->gen->dead.mut);
+	if (me->gen->dead.check == 1)
+	{
+		pthread_mutex_unlock(&me->gen->dead.mut);
+		return (1);
+	}
+	if (me->last_eaten + (long long)me->gen->time_to_die < time_in_millis())
+	{
+		me->gen->dead.check = 1;
+		printf("time: %i, philo %i died\n", (int)elapsed_time(me), me->id);
+		pthread_mutex_unlock(&me->gen->dead.mut);
+		return (1);
+	}
+	return (0);
 	
 }
 
-void	ph_eat(t_philo *me)
+int	ph_print(t_philo *me, char *msg)
 {
-	printf("%i %i is thinking");
-}
-
-void	ph_sleep(t_philo *me)
-{
-	printf("%i %i is thinking");
-}
-
-void	ph_think(t_philo *me)
-{
-	long long	timenow;
-
-	if (ph_death(me))
+	if (ph_death(me) == 0)
 	{
-		timenow = 
-		printf("%i %i is thinking", timenow - me->gen->start_time ,me->id);
-
+		printf("time: %i, philo: %i %s\n", (int)elapsed_time(me), me->id, msg);
+		pthread_mutex_unlock(&me->gen->dead.mut);
+		return (0);
 	}
+	return (1);
+}
+
+int	ph_eat(t_philo *me)
+{
+	if (me->id % 2 == 1)
+	{
+		if (grab_fork(me, -1))
+			return(1);
+		if (grab_fork(me, 0))
+		{
+			pthread_mutex_unlock(&me->gen->forks[me->id - 1]);
+			return (1);
+		}
+	}
+	else
+	{
+		if (grab_fork(me, 0))
+			return(1);
+		if (grab_fork(me, -1))
+		{
+			pthread_mutex_unlock(&me->gen->forks[me->id % me->gen->philocount]);
+			return (1);
+		}
+	}
+	if (ph_print(me, "is eating") == 0)
+	{
+		me->last_eaten = time_in_millis();
+		great_sleep(me->gen->time_to_eat);
+		pthread_mutex_unlock(&me->gen->forks[me->id - 1]);
+		pthread_mutex_unlock(&me->gen->forks[me->id % me->gen->philocount]);
+		return (0);
+	}
+	return (1);
+}
+
+int	ph_sleep(t_philo *me)
+{
+	if (ph_print(me, "is sleeping") == 0)
+	{
+		great_sleep(me->gen->time_to_sleep);
+		return (0);
+	}
+	return (1);
+}
+
+int	ph_think(t_philo *me)
+{
+	return (ph_print(me, "is thinking"));
 }

@@ -6,12 +6,12 @@
 #    By: obult <obult@student.codam.nl>               +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/01/19 12:29:04 by obult         #+#    #+#                  #
-#    Updated: 2022/02/03 15:59:13 by obult         ########   odam.nl          #
+#    Updated: 2022/02/04 19:06:50 by obult         ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		= philo
-OBJ			= main.o ph_input.o ph_atoi.o philo.o start_sim.o
+OBJ			= main.o ph_input.o ph_atoi.o philo.o start_sim.o time.o eat_sleep_think.o forks.o
 OBJS		= $(addprefix obj/, ${OBJ})
 CC			= gcc
 RM			= rm -f

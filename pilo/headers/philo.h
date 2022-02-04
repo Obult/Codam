@@ -6,7 +6,7 @@
 /*   By: obult <obult@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/19 14:18:48 by obult         #+#    #+#                 */
-/*   Updated: 2022/02/04 12:54:00 by obult         ########   odam.nl         */
+/*   Updated: 2022/02/04 19:05:26 by obult         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <sys/time.h>
+# include <unistd.h>
 
 typedef struct s_philo t_philo;
 
@@ -47,7 +48,7 @@ typedef struct s_philo
 	int			id;
 	int			times_eaten;
 	t_general	*gen;
-	// time since last eaten
+	long long	last_eaten;
 }				t_philo;
 
 int	ph_atoi(const char *nptr, int *error);
@@ -57,5 +58,17 @@ int	ph_initer(t_general *data);
 int     parse_input(t_general *data, char **argv, int argc);
 void	*start_sim(t_general *data);
 void	*iam_philo(void *arg);
+
+void	great_sleep(int	mili);
+long long	elapsed_time(t_philo *me);
+long long	time_in_millis(void);
+
+int	ph_death(t_philo *me);
+int	ph_print(t_philo *me, char *msg);
+int	ph_eat(t_philo *me);
+int	ph_sleep(t_philo *me);
+int	ph_think(t_philo *me);
+
+int	grab_fork(t_philo *me, int offset);
 
 #endif
