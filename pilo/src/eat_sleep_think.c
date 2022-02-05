@@ -6,7 +6,7 @@
 /*   By: obult <obult@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/03 16:02:29 by obult         #+#    #+#                 */
-/*   Updated: 2022/02/05 11:45:23 by obult         ########   odam.nl         */
+/*   Updated: 2022/02/05 12:12:08 by obult         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	ph_print(t_philo *me, char *msg)
 	return (1);
 }
 
-int	ph_eat(t_philo *me)
+int	grab_forks_plural(t_philo *me)
 {
 	if (me->id % 2 == 1)
 	{
@@ -64,6 +64,13 @@ int	ph_eat(t_philo *me)
 			return (1);
 		}
 	}
+	return (0);
+}
+
+int	ph_eat(t_philo *me)
+{
+	if (grab_forks_plural(me))
+		return (1);
 	if (ph_print(me, "is eating") == 0)
 	{
 		me->last_eaten = time_in_millis();
