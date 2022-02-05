@@ -6,7 +6,7 @@
 /*   By: obult <obult@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/27 16:57:13 by obult         #+#    #+#                 */
-/*   Updated: 2022/02/04 17:45:38 by obult         ########   odam.nl         */
+/*   Updated: 2022/02/05 16:48:13 by obult         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int     parse_input(t_general *data, char **argv, int argc)
     return (error);
 }
 
-static void	ph_asign_values(t_general *data)
+static int	ph_asign_values(t_general *data)
 {
 	int	i;
 
@@ -42,6 +42,7 @@ static void	ph_asign_values(t_general *data)
 		data->ph_info[i].gen = data;
 		i++;
 	}
+	return (0);
 }
 
 int	ph_initer(t_general *data)
@@ -62,6 +63,13 @@ int	ph_initer(t_general *data)
 		free(data->philos);
 		return (1);
 	}
-	ph_asign_values(data);
-	return (0);
+	data->dead = malloc((data->philocount + 9) / 10 * sizeof(t_dead));
+	if (!data->dead)
+	{
+		free(data->forks);
+		free(data->philos);
+		free(data->ph_info);
+		return (1);	
+	}
+	return (ph_asign_values(data));
 }

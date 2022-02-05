@@ -6,7 +6,7 @@
 /*   By: obult <obult@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/19 14:18:48 by obult         #+#    #+#                 */
-/*   Updated: 2022/02/05 11:24:37 by obult         ########   odam.nl         */
+/*   Updated: 2022/02/05 16:12:24 by obult         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ typedef struct s_general
 	pthread_mutex_t	*forks;
 	pthread_t		*philos;
 	t_philo			*ph_info;
-	t_dead			dead;
+	t_dead			*dead;
 	long long		start_time;
 }					t_general;
 
