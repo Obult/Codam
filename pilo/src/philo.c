@@ -6,7 +6,7 @@
 /*   By: obult <obult@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/02 11:39:47 by obult         #+#    #+#                 */
-/*   Updated: 2022/02/04 20:09:54 by obult         ########   odam.nl         */
+/*   Updated: 2022/02/05 11:49:18 by obult         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,22 +21,21 @@
 void	*iam_philo(void *arg)
 {
 	t_philo	*me;
+	int		i;
 
+	i = 0;
 	me = (t_philo *)arg;
 	if (me->id % 2 == 0)
 		usleep(100);
-	while (1)
+	while (me->gen->eats == 0 || i < me->gen->eats)
 	{
-		
-		// ph_death(me);
-		// printf("iam philo %i\n", me->id);
-		// pthread_mutex_unlock(&me->gen->dead.mut);
 		if (ph_eat(me) == 1)
 			break ;
 		if (ph_sleep(me) == 1)
 			break ;
 		if (ph_think(me) == 1)
 			break ;
+		i++;
 	}
 	return (NULL);
 }

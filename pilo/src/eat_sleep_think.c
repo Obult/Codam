@@ -6,7 +6,7 @@
 /*   By: obult <obult@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/03 16:02:29 by obult         #+#    #+#                 */
-/*   Updated: 2022/02/04 19:35:50 by obult         ########   odam.nl         */
+/*   Updated: 2022/02/05 11:45:23 by obult         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	ph_death(t_philo *me)
 	if (me->last_eaten + (long long)me->gen->time_to_die < time_in_millis())
 	{
 		me->gen->dead.check = 1;
-		printf("time: %i, philo %i died\n", (int)elapsed_time(me), me->id);
+		printf("time: %i, philo: %i died\n", (int)elapsed_time(me), me->id);
 		pthread_mutex_unlock(&me->gen->dead.mut);
 		return (1);
 	}
@@ -67,7 +67,7 @@ int	ph_eat(t_philo *me)
 	if (ph_print(me, "is eating") == 0)
 	{
 		me->last_eaten = time_in_millis();
-		great_sleep(me->gen->time_to_eat);
+		great_sleep(me->gen->time_to_eat, me);
 		pthread_mutex_unlock(&me->gen->forks[me->id - 1]);
 		pthread_mutex_unlock(&me->gen->forks[me->id % me->gen->philocount]);
 		return (0);
@@ -79,7 +79,7 @@ int	ph_sleep(t_philo *me)
 {
 	if (ph_print(me, "is sleeping") == 0)
 	{
-		great_sleep(me->gen->time_to_sleep);
+		great_sleep(me->gen->time_to_sleep, me);
 		return (0);
 	}
 	return (1);
