@@ -6,7 +6,7 @@
 /*   By: obult <obult@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/02 16:41:10 by obult         #+#    #+#                 */
-/*   Updated: 2022/02/06 15:54:13 by obult         ########   odam.nl         */
+/*   Updated: 2022/02/06 17:35:46 by obult         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	someonedied_function(t_general *data, int philo)
 		data->dead[i].check = 1;
 		i++;
 	}
-	printf("time: %i, philo: %i died\n", (int)elapsed_time(&data->ph_info[philo]), philo);
+	printf("time: %i, philo: %i died\n", (int)elapsed_time(&data->ph_info[philo - 1]), philo);
 	i = 0;
 	while (i < (data->philocount + 9) / 10)
 	{
@@ -67,16 +67,16 @@ void	ph_holy_thread(t_general *data)
 				c = 1;
 				break ;
 			}
-			pthread_mutex_lock(&data->dead[i / 10].mut);	// maybe does nothing vv
-			if (data->dead[i / 10].check != 0)
-			{
+			// pthread_mutex_lock(&data->dead[i / 10].mut);	// maybe does nothing vv
+			// if (data->dead[i / 10].check != 0)
+			// {
 
-				someonedied_function(data, data->dead[i / 10].check);
-				c = 1;
-				break ;
-			}
-			else
-				pthread_mutex_unlock(&data->dead[i / 10].mut);
+			// 	someonedied_function(data, data->dead[i / 10].check);
+			// 	c = 1;
+			// 	break ;
+			// }
+			// else
+			// 	pthread_mutex_unlock(&data->dead[i / 10].mut);
 			i++;
 		}
 		if (c || whale_loop(data))
